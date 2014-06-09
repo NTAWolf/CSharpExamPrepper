@@ -12,7 +12,7 @@ namespace ExamPrepper
 		{
 			this.Build();
 			this.conductor = conductor;
-			ShowQuestion();
+			GoToNextQuestion();
 		}
 
 		protected void OnShowAnswerButtonClicked(object sender, EventArgs e)
@@ -23,19 +23,26 @@ namespace ExamPrepper
 
 		protected void OnAcceptAnswerButtonClicked(object sender, EventArgs e)
 		{
-			//throw new NotImplementedException();
-			// Set answer as satisfactory: Discard the QA.
-
-			conductor.MarkAsCorrectlyAnswered();
-			GoToNextQuestion();
+			AcceptAnswer();
 		}
 
 		protected void OnRejectAnswerButtonClicked(object sender, EventArgs e)
 		{
-			//throw new NotImplementedException();
+			RejectAnswer();
+		}
+
+		private void AcceptAnswer()
+		{
+			conductor.MarkAsCorrectlyAnswered();
+			GoToNextQuestion();
+		}
+
+		private void RejectAnswer()
+		{
 			// Set answer as not satisfactory
 			GoToNextQuestion();
 		}
+
 
 		private void GoToNextQuestion()
 		{
@@ -45,6 +52,7 @@ namespace ExamPrepper
 			answerTextview.Buffer.Text = "";
 			answer = qa.Answer;
 			ShowQuestion();
+			UpdateProgressBar();
 		}
 
 		private void ShowQuestion()
@@ -67,9 +75,10 @@ namespace ExamPrepper
 			showAnswerButton.Sensitive = false;
 		}
 
-		private void UpdateQuestionsLeftDisplay()
+		private void UpdateProgressBar()
 		{
-
+			progressbar.Fraction = conductor.Progress;
+			progressText.Text = conductor.NumberOfQuestionsLeft.ToString() + " questions left.";
 		}
 	}
 }

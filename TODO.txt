@@ -1,7 +1,9 @@
 TODO
 
 Adapt response size to actual response
-Show progress, either as bar or count or both
-
+Allow hotkeys for show answer, accept, and reject
 Allow drawing as user response
 Load and show images for answers
+
+√ Show progress, either as bar or count or both
+√ Fix startup question to be an actual question

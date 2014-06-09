@@ -30,6 +30,14 @@ namespace ExamPrepper
 			}
 		}
 
+		public double Progress
+		{
+			get
+			{
+				return 1.0 - (double)NumberOfQuestionsLeft / (double)NumberOfQuestions;
+			}
+		}
+
 		public QuestionAnswer NextQuestion
 		{
 			get

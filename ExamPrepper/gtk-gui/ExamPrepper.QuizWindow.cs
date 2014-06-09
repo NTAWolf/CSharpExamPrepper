@@ -5,16 +5,30 @@ namespace ExamPrepper
 	public partial class QuizWindow
 	{
 		private global::Gtk.VBox vbox2;
+		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
+		
 		private global::Gtk.TextView questionTextview;
+		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
+		
 		private global::Gtk.TextView userResponseTextview;
+		
 		private global::Gtk.ScrolledWindow GtkScrolledWindow2;
+		
 		private global::Gtk.TextView answerTextview;
+		
 		private global::Gtk.HBox hbox1;
+		
 		private global::Gtk.Button rejectAnswerButton;
+		
 		private global::Gtk.Button showAnswerButton;
+		
 		private global::Gtk.Button acceptAnswerButton;
+		
+		private global::Gtk.Label progressText;
+		
+		private global::Gtk.ProgressBar progressbar;
 
 		protected virtual void Build ()
 		{
@@ -110,11 +124,31 @@ namespace ExamPrepper
 			w9.Position = 2;
 			w9.Expand = false;
 			w9.Fill = false;
-			this.vbox2.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.progressText = new global::Gtk.Label ();
+			this.progressText.Sensitive = false;
+			this.progressText.Name = "progressText";
+			this.progressText.LabelProp = global::Mono.Unix.Catalog.GetString ("label1");
+			this.hbox1.Add (this.progressText);
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.progressText]));
+			w10.PackType = ((global::Gtk.PackType)(1));
 			w10.Position = 3;
 			w10.Expand = false;
 			w10.Fill = false;
+			w10.Padding = ((uint)(2));
+			// Container child hbox1.Gtk.Box+BoxChild
+			this.progressbar = new global::Gtk.ProgressBar ();
+			this.progressbar.Sensitive = false;
+			this.progressbar.Name = "progressbar";
+			this.hbox1.Add (this.progressbar);
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.progressbar]));
+			w11.PackType = ((global::Gtk.PackType)(1));
+			w11.Position = 4;
+			this.vbox2.Add (this.hbox1);
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
+			w12.Position = 3;
+			w12.Expand = false;
+			w12.Fill = false;
 			this.Add (this.vbox2);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();

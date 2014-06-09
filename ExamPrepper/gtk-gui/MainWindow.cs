@@ -4,7 +4,9 @@
 public partial class MainWindow
 {
 	private global::Gtk.VBox vbox1;
+	
 	private global::Gtk.Button openQuizFileButton;
+	
 	private global::Gtk.Button button1;
 
 	protected virtual void Build ()
