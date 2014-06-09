@@ -1,9 +1,15 @@
 TODO
 
 Adapt response size to actual response
-Allow hotkeys for show answer, accept, and reject
 Allow drawing as user response
-Load and show images for answers
+Show elapsed time.
+Make settings menu to set hotkeys, order mode, time limit.
 
+√ Load proper images for answers
+√ Assume images are in quiz/./images/
+√ Resistance to whitespace immediately after ? and #
+√ Show image for answer
+√ Fix crash when accepting final question
+√ Allow hotkeys for show answer, accept, and reject
 √ Show progress, either as bar or count or both
 √ Fix startup question to be an actual question

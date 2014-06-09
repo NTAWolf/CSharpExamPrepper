@@ -28,9 +28,16 @@ namespace ExamPrepper
 			get;
 			private set;
 		}
+			
+		public bool IsImage
+		{
+			get;
+			private set;
+		}
 
 		public QuestionAnswer(StreamReader rawText, string[] tags, string source)
 		{
+			IsImage = false;
 			Tags = tags;
 			Source = source;
 
@@ -39,6 +46,9 @@ namespace ExamPrepper
 			{
 				rawText.Read();
 			}
+
+			// Consume whitespace
+			ConsumeWhitespace(rawText);
 
 			// Get question
 			Question = rawText.ReadLine();
@@ -50,7 +60,10 @@ namespace ExamPrepper
 			// Consume '#'		
 			rawText.Read();
 
-			// Determine if multiline
+			// Consume whitespace
+			ConsumeWhitespace(rawText);
+
+			// Determine if multiline, or image
 			if(rawText.Peek() == '{')
 			{
 				// Multiline
@@ -66,10 +79,42 @@ namespace ExamPrepper
 				// Consume }
 				rawText.Read();
 			}
+			else if(rawText.Peek() == '[')
+			{
+				// Is image
+				IsImage = true;
+				string imageName = rawText.ReadLine();
+				imageName = imageName.Substring(1, imageName.LastIndexOf(']') - 1);
+				Answer = imageName;
+				/*string imagePath = Path.Combine(basePath, "images", imageName);
+
+				Console.WriteLine("Reading image path: " + imagePath);
+
+				Image = new Gdk.Pixbuf(imagePath);
+
+				Console.WriteLine("Finsihed reading image");
+*/
+				//Image = Gtk.Image.LoadFromResource(imagePath);
+			}
 			else
 			{
 				// Single line
 				Answer = rawText.ReadLine();
+			}
+		}
+
+		private void ConsumeWhitespace(StreamReader stream)
+		{
+			while(
+				(
+				   stream.Peek() == ' ' 
+				|| stream.Peek() == '\t' 
+				|| stream.Peek() == '\r' 
+				|| stream.Peek() == '\n'
+				)
+				&& stream.EndOfStream == false)
+			{
+				stream.Read();
 			}
 		}
 

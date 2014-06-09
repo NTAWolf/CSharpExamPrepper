@@ -7,8 +7,6 @@ namespace ExamPrepper
 {
 	public class QuizConductor
 	{
-		//public enum Mode {Random, Forward, Backward}
-
 		private List<QuestionAnswer> questionAnswers;
 		private List<QuestionAnswer> unusedQAs;
 		private QuestionAnswer currentQA = null;
@@ -53,8 +51,15 @@ namespace ExamPrepper
 			}
 		}
 
-		public QuizConductor(StreamReader rawText)
+		public string BasePath
 		{
+			get;
+			private set;
+		}
+
+		public QuizConductor(StreamReader rawText, string basePath)
+		{
+			BasePath = basePath;
 			ReadQAs(rawText);
 			InitiateUnusedQAs();
 		}
@@ -63,36 +68,37 @@ namespace ExamPrepper
 		{
 			questionAnswers = new List<QuestionAnswer>(50);
 
+			RemoveNonessentialLines(rawText);
+
 			while(false == rawText.EndOfStream)
 			{
 				// Determine source, tags
-
 				// For now, disregard source, tags
+				// 		Disregard all lines not starting with ?
 
-				// Disregard all lines not starting with ?
-
-				// Create & store questions
-				while(rawText.Peek() != '?')
-				{
-					rawText.ReadLine();
-				}
-
+				// Create & store questions	
 				QuestionAnswer temp = new QuestionAnswer(rawText, null, null);
-
-				Console.WriteLine("Adding question:" 
-					+ System.Environment.NewLine 
-					+ temp.ToString()
-					+ System.Environment.NewLine
-					+ "---------"
-					+ System.Environment.NewLine);
-
 				questionAnswers.Add(temp);
+
+				RemoveNonessentialLines(rawText);
 			}
 
 			Console.WriteLine("Total question count: " + questionAnswers.Count);
 		}
 
-		private QuestionAnswer GetNextQuestionAnswer()//Mode mode)
+		private void RemoveNonessentialLines(StreamReader stream)
+		{
+			while(stream.Peek() != '?')
+			{
+				if(stream.EndOfStream)
+					break;
+
+				stream.ReadLine();
+			}
+
+		}
+
+		private QuestionAnswer GetNextQuestionAnswer()
 		{ 
 			QuestionAnswer qa;
 
@@ -110,16 +116,6 @@ namespace ExamPrepper
 			currentQA = qa;
 
 			return currentQA;
-			/*switch(mode)
-			{
-			case Mode.Random:
-				output = unusedQAs[]
-				break;
-			case Mode.Forward:
-				break;
-			case Mode.Backward:
-				break;
-			}*/
 		}
 
 		private QuestionAnswer GetRandomElement(List<QuestionAnswer> list)

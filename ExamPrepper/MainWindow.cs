@@ -31,15 +31,21 @@ public partial class MainWindow: Gtk.Window
 
 	protected void OnOpenQuizFileButtonClicked(object sender, EventArgs e)
 	{
-		StreamReader stream;
-		AskForQuizFile(out stream);
-		qc = new QuizConductor(stream);
-		stream.Close();
-		//throw new NotImplementedException();
+		string quizPath = AskForQuizFilePath();
+		Console.WriteLine("Reading quiz from " + quizPath);
+		using(StreamReader quizStream = new StreamReader(quizPath))
+		{
+			string basePath = System.IO.Path.GetDirectoryName(quizPath);
+			qc = new QuizConductor(quizStream, basePath);
+		}
+
+		Console.WriteLine("Finished reading quiz");
 	}
 
-	public void AskForQuizFile(out StreamReader rawText)
+	public string AskForQuizFilePath()
 	{
+		string output;
+
 		Gtk.FileChooserDialog fc =
 			new Gtk.FileChooserDialog("Choose the quiz to open",
 				this,
@@ -49,15 +55,16 @@ public partial class MainWindow: Gtk.Window
 
 		if (fc.Run() == (int)ResponseType.Accept) 
 		{
-			rawText = new StreamReader(fc.Filename);
-			//System.IO.FileStream file = System.IO.File.OpenRead(fc.Filename);
-			//file.Close();
+			output = fc.Filename;
 		}
 		else
 		{
 			throw new ApplicationException("Could for some reason not read the wanted file: " + fc.Filename);
 		}
+
 		//Don't forget to call Destroy() or the FileChooserDialog window won't get closed.
 		fc.Destroy();
+
+		return output;
 	}
 }

@@ -65,6 +65,8 @@
     <Compile Include="gtk-gui\ExamPrepper.QuizWindow.cs" />
     <Compile Include="QuestionAnswer.cs" />
     <Compile Include="QuizConductor.cs" />
+    <Compile Include="ImageDisplayerWindow.cs" />
+    <Compile Include="gtk-gui\ExamPrepper.ImageDisplayerWindow.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

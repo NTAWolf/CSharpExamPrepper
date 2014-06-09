@@ -156,6 +156,7 @@ namespace ExamPrepper
 			this.DefaultWidth = 659;
 			this.DefaultHeight = 605;
 			this.Show ();
+			this.KeyReleaseEvent += new global::Gtk.KeyReleaseEventHandler (this.OnWindowKeyRelease);
 			this.rejectAnswerButton.Clicked += new global::System.EventHandler (this.OnRejectAnswerButtonClicked);
 			this.showAnswerButton.Clicked += new global::System.EventHandler (this.OnShowAnswerButtonClicked);
 			this.acceptAnswerButton.Clicked += new global::System.EventHandler (this.OnAcceptAnswerButtonClicked);
