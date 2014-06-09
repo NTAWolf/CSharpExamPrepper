@@ -1,0 +1,7 @@
+TODO
+
+Adapt response size to actual response
+Show progress, either as bar or count or both
+
+Allow drawing as user response
+Load and show images for answers
