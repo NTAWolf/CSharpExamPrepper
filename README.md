@@ -5,6 +5,13 @@ A small program made specifically for exam preparations - when you need to learn
 
 ===========
 
+# Hotkeys
+At the moment, hotkeys are hardcoded. They are as follows:
+
+- CTRL + SPACE: Show true answer
+- CTRL + a: Accept your answer
+- CTRL + r: Reject your answer
+
 # Implemented quiz syntax
 When you create your own quiz, some syntax rules have to be obeyed.
 
