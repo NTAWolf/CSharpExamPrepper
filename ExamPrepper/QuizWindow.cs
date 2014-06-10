@@ -78,12 +78,11 @@ namespace ExamPrepper
 		{
 			answerTextview.Buffer.Text = currentQA.Answer;
 			answerTextview.Sensitive = true;
-			if(currentQA.IsImage)
+
+			if(currentQA.HasImage)
 			{
-				//Gdk.Image img = new Gdk.Image(Gdk.ImageType.Normal, Gdk.Visual.Best, 200, 200);
-				string imagepath = System.IO.Path.Combine(conductor.BasePath, "images", currentQA.Answer);
-				ImageDisplayerWindow idw = new ImageDisplayerWindow(imagepath);
-				idw.Show();
+				string imagepath = System.IO.Path.Combine(conductor.BasePath, "images", currentQA.ImageFile);
+				ShowImage(imagepath);
 			}
 
 			userResponseTextview.Sensitive = false;
@@ -116,12 +115,17 @@ namespace ExamPrepper
 			showAnswerButton.Sensitive = false;
 		}
 
+		private void ShowImage(string path)
+		{
+			ImageDisplayerWindow idw = new ImageDisplayerWindow(path);
+			idw.Show();
+		}
+
 
 		protected void OnWindowKeyRelease(object o, Gtk.KeyReleaseEventArgs args)
 		{
 			if(args.Event.State == Gdk.ModifierType.ControlMask)
 			{
-				Console.WriteLine("Evaluating key " + args.Event.Key);
 				switch(args.Event.Key)
 				{
 					case hotkeyShowAnswer:
@@ -135,7 +139,6 @@ namespace ExamPrepper
 						break;
 				}
 			}
-			//Console.WriteLine("Key released: " + args.Event.Key.ToString() + "\t" + args.Event.State.ToString());
 		}
 	}
 }
