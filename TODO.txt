@@ -1,5 +1,8 @@
 TODO
 
+Whitespace in quizzer not fixed yet
+Maybe colourcode reject and accept?
+Ensure that keyboard focus is in response field, so no mouse clicketyclicking is needed.
 Adapt response size to actual response
 Allow drawing as user response
 Show elapsed time.
@@ -11,5 +14,6 @@ Make settings menu to set hotkeys, order mode, time limit.
 √ Show image for answer
 √ Fix crash when accepting final question
 √ Allow hotkeys for show answer, accept, and reject
+
 √ Show progress, either as bar or count or both
 √ Fix startup question to be an actual question
