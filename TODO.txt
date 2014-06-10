@@ -2,8 +2,15 @@ TODO
 
 Adapt response size to actual response
 Allow drawing as user response
+Set smaller tabulation size
 Show elapsed time.
 Make settings menu to set hotkeys, order mode, time limit.
+Multiline answer linebreak after # ... remove linebreak.
+Stop hotkeys from working when they shouldn't be allowed
+Check how random the question selection actually is.
+
+√ Make a bit of whitespace on the left and right sides
+√ When allowing text to follow image name, kill whitespace in front of the text.
 
 √ Load proper images for answers
 √ Assume images are in quiz/./images/

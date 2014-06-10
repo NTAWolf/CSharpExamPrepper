@@ -76,6 +76,7 @@ namespace ExamPrepper
 				// Multiline
 				// Consume {
 				rawText.Read();
+				ConsumeWhitespace(rawText);
 
 				// Read multiline content
 				Answer = rawText.ReadLine();
@@ -95,7 +96,7 @@ namespace ExamPrepper
 
 				HasImage = true;
 				ImageFile  = fullLine.Substring(startBracket + 1,  endBracket - 1);
-				Answer = fullLine.Substring(endBracket + 1);
+				Answer = fullLine.Substring(endBracket + 1).Trim();
 			}
 			else
 			{
