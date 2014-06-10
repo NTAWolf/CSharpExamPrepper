@@ -47,37 +47,39 @@ namespace ExamPrepper
 			Tags = tags;
 			Source = source;
 
+			ExtractQuestion(rawText);
+			ExtractAnswer(rawText);
+		}
+
+		void ExtractQuestion(StreamReader rawText)
+		{
 			// Consume '?'
 			if(rawText.Peek() == '?')
 			{
 				rawText.Read();
 			}
-
-			// Consume whitespace
-			ConsumeWhitespace(rawText);
-
 			// Get question
 			Question = rawText.ReadLine();
 			while(rawText.Peek() != '#')
 			{
 				Question += System.Environment.NewLine + rawText.ReadLine();
 			}
+			Question = Question.Trim();
+		}
 
+		void ExtractAnswer(StreamReader rawText)
+		{
 			// Consume '#'		
 			rawText.Read();
 
-			// Consume whitespace
+			// Consume whitespace before a possible keyword
 			ConsumeWhitespace(rawText);
 
 			// Determine if multiline, or image
-			if(rawText.Peek() == '{')
+			if(rawText.Peek() == '{') // Multiline
 			{
-				Console.WriteLine("Is multiline!");
-				// Multiline
 				// Consume {
 				rawText.Read();
-				ConsumeWhitespace(rawText);
-
 				// Read multiline content
 				Answer = rawText.ReadLine();
 				while(rawText.Peek() != '}')
@@ -87,35 +89,27 @@ namespace ExamPrepper
 				// Consume }
 				rawText.Read();
 			}
-			else if(rawText.Peek() == '[')
+			else if(rawText.Peek() == '[') // Has image
 			{
-				Console.WriteLine("Has image!");
 				string fullLine = rawText.ReadLine();
-				int startBracket = fullLine.IndexOf('['); // Yes, I know this can only be index 0, but it might be made more flexible in the future.
+				int startBracket = fullLine.IndexOf('[');
+				// Yes, I know this can only be index 0, but it might be made more flexible in the future.
 				int endBracket = fullLine.IndexOf(']');
-
 				HasImage = true;
-				ImageFile  = fullLine.Substring(startBracket + 1,  endBracket - 1);
-				Answer = fullLine.Substring(endBracket + 1).Trim();
+				ImageFile = fullLine.Substring(startBracket + 1, endBracket - 1);
+				Answer = fullLine.Substring(endBracket + 1);
 			}
-			else
+			else // Single line
 			{
-				// Single line
 				Answer = rawText.ReadLine();
-				Console.WriteLine("is singleline!");
 			}
+			Answer = Answer.Trim();
 		}
 
 		private void ConsumeWhitespace(StreamReader stream)
 		{
-			while(
-				(
-				   stream.Peek() == ' ' 
-				|| stream.Peek() == '\t' 
-				|| stream.Peek() == '\r' 
-				|| stream.Peek() == '\n'
-				)
-				&& stream.EndOfStream == false)
+			while(Char.IsWhiteSpace((char)stream.Peek())
+				  && stream.EndOfStream == false)
 			{
 				stream.Read();
 			}

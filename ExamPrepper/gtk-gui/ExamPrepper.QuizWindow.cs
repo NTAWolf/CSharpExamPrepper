@@ -55,6 +55,8 @@ namespace ExamPrepper
 			this.questionTextview.CursorVisible = false;
 			this.questionTextview.AcceptsTab = false;
 			this.questionTextview.WrapMode = ((global::Gtk.WrapMode)(3));
+			this.questionTextview.LeftMargin = 2;
+			this.questionTextview.RightMargin = 2;
 			this.GtkScrolledWindow.Add (this.questionTextview);
 			this.vbox2.Add (this.GtkScrolledWindow);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow]));
@@ -68,6 +70,8 @@ namespace ExamPrepper
 			this.userResponseTextview.CanFocus = true;
 			this.userResponseTextview.Name = "userResponseTextview";
 			this.userResponseTextview.WrapMode = ((global::Gtk.WrapMode)(3));
+			this.userResponseTextview.LeftMargin = 2;
+			this.userResponseTextview.RightMargin = 2;
 			this.GtkScrolledWindow1.Add (this.userResponseTextview);
 			this.vbox2.Add (this.GtkScrolledWindow1);
 			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow1]));
@@ -84,6 +88,8 @@ namespace ExamPrepper
 			this.answerTextview.CursorVisible = false;
 			this.answerTextview.AcceptsTab = false;
 			this.answerTextview.WrapMode = ((global::Gtk.WrapMode)(3));
+			this.answerTextview.LeftMargin = 2;
+			this.answerTextview.RightMargin = 2;
 			this.GtkScrolledWindow2.Add (this.answerTextview);
 			this.vbox2.Add (this.GtkScrolledWindow2);
 			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow2]));

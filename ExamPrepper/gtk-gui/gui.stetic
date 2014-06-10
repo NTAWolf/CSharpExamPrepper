@@ -79,6 +79,8 @@
                 <property name="Text" translatable="yes">Quiz Window
 </property>
                 <property name="WrapMode">WordChar</property>
+                <property name="LeftMargin">2</property>
+                <property name="RightMargin">2</property>
               </widget>
             </child>
           </widget>
@@ -98,6 +100,8 @@
                 <property name="ShowScrollbars">True</property>
                 <property name="Text" translatable="yes" />
                 <property name="WrapMode">WordChar</property>
+                <property name="LeftMargin">2</property>
+                <property name="RightMargin">2</property>
               </widget>
             </child>
           </widget>
@@ -120,6 +124,8 @@
                 <property name="AcceptsTab">False</property>
                 <property name="Text" translatable="yes" />
                 <property name="WrapMode">WordChar</property>
+                <property name="LeftMargin">2</property>
+                <property name="RightMargin">2</property>
               </widget>
             </child>
           </widget>

@@ -11,6 +11,9 @@ namespace ExamPrepper
 		private const Gdk.Key hotkeyRejectAnswer = Gdk.Key.r;
 		private const Gdk.Key hotkeyShowAnswer = Gdk.Key.space;
 
+		private enum State {ShowingAnswer, ShowingQuestion}
+		private State state;
+
 		public QuizWindow(QuizConductor conductor) : 
 			base(Gtk.WindowType.Toplevel)
 		{
@@ -36,12 +39,18 @@ namespace ExamPrepper
 
 		private void AcceptAnswer()
 		{
+			if(state != State.ShowingAnswer)
+				return;
+
 			conductor.MarkAsCorrectlyAnswered();
 			GoToNextQuestion();
 		}
 
 		private void RejectAnswer()
 		{
+			if(state != State.ShowingAnswer)
+				return;
+
 			GoToNextQuestion();
 		}
 
@@ -62,10 +71,13 @@ namespace ExamPrepper
 
 		private void ShowQuestion()
 		{
+			state = State.ShowingQuestion;
+
 			questionTextview.Buffer.Text = currentQA.Question;
 
 			userResponseTextview.Buffer.Text = "";
 			userResponseTextview.Sensitive = true;
+			userResponseTextview.GrabFocus();
 			answerTextview.Buffer.Text = "";
 			answerTextview.Sensitive = false;
 
@@ -76,6 +88,11 @@ namespace ExamPrepper
 
 		private void ShowAnswer()
 		{
+			if(state == State.ShowingAnswer)
+				return;
+
+			state = State.ShowingAnswer;
+
 			answerTextview.Buffer.Text = currentQA.Answer;
 			answerTextview.Sensitive = true;
 
