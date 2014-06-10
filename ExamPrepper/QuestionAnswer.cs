@@ -29,7 +29,13 @@ namespace ExamPrepper
 			private set;
 		}
 			
-		public bool IsImage
+		public bool HasImage
+		{
+			get;
+			private set;
+		}
+
+		public string ImageFile
 		{
 			get;
 			private set;
@@ -37,7 +43,7 @@ namespace ExamPrepper
 
 		public QuestionAnswer(StreamReader rawText, string[] tags, string source)
 		{
-			IsImage = false;
+			HasImage = false;
 			Tags = tags;
 			Source = source;
 
@@ -66,9 +72,11 @@ namespace ExamPrepper
 			// Determine if multiline, or image
 			if(rawText.Peek() == '{')
 			{
+				Console.WriteLine("Is multiline!");
 				// Multiline
 				// Consume {
 				rawText.Read();
+				ConsumeWhitespace(rawText);
 
 				// Read multiline content
 				Answer = rawText.ReadLine();
@@ -81,25 +89,20 @@ namespace ExamPrepper
 			}
 			else if(rawText.Peek() == '[')
 			{
-				// Is image
-				IsImage = true;
-				string imageName = rawText.ReadLine();
-				imageName = imageName.Substring(1, imageName.LastIndexOf(']') - 1);
-				Answer = imageName;
-				/*string imagePath = Path.Combine(basePath, "images", imageName);
+				Console.WriteLine("Has image!");
+				string fullLine = rawText.ReadLine();
+				int startBracket = fullLine.IndexOf('['); // Yes, I know this can only be index 0, but it might be made more flexible in the future.
+				int endBracket = fullLine.IndexOf(']');
 
-				Console.WriteLine("Reading image path: " + imagePath);
-
-				Image = new Gdk.Pixbuf(imagePath);
-
-				Console.WriteLine("Finsihed reading image");
-*/
-				//Image = Gtk.Image.LoadFromResource(imagePath);
+				HasImage = true;
+				ImageFile  = fullLine.Substring(startBracket + 1,  endBracket - 1);
+				Answer = fullLine.Substring(endBracket + 1).Trim();
 			}
 			else
 			{
 				// Single line
 				Answer = rawText.ReadLine();
+				Console.WriteLine("is singleline!");
 			}
 		}
 

@@ -8,6 +8,7 @@ namespace ExamPrepper
 			base(Gtk.WindowType.Toplevel)
 		{
 			this.Build();
+			this.Title = System.IO.Path.GetFileNameWithoutExtension(imagePath);
 			imageArea.Pixbuf = (new Gtk.Image(imagePath)).Pixbuf;
 		}
 	}
