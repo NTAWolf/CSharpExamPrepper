@@ -1,11 +1,23 @@
 TODO
 
 Allow drawing as user response
+	- In response field, or in a separate window?
 Set smaller tabulation size
-Show elapsed time.
 Make settings menu to set hotkeys, order mode, time limit.
+	- Or use a .conf file?
+	- Use a hidden .conf, that only the program will access?
 Multiline answer linebreak after # ... remove linebreak.
 Check how random the question selection actually is.
+Consider putting image Answers in the Answers box. This will, however, not be nice for large images, only small ones.
+	- Maybe use separate window only if answers box is too small to hold image.
+	- Maybe allow user to close the separate window containing image answer by clicking something in the Answer field.
+	- Maybe close separate window when user moves on to next QA.
+
+√ Show elapsed time.
+	- When? Here are some possible designs:
+		- Constantly, update continuously
+			- √ Only show minutes
+		- √ Show at the end of the session, when last question has been answered
 
 √ Stop hotkeys from working when their corresponding button is disabled
 √ Ensure that keyboard focus is in response field, so no mouse clicketyclicking is needed.

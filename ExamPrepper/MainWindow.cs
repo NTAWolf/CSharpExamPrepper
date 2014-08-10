@@ -26,7 +26,6 @@ public partial class MainWindow: Gtk.Window
 		
 		qw = new QuizWindow(qc);
 		qw.Show();
-		//throw new NotImplementedException();
 	}
 
 	protected void OnOpenQuizFileButtonClicked(object sender, EventArgs e)

@@ -1,0 +1,14 @@
+The Wolf's Exam Prepper syntax
+
+Keywords
+
+Source:
+#
+?
+{}, for containing blocks after # and ?
+-tag1, tag2, tag3
+- //Stops applying previous tags
+
+MySection	\
+---------	/ Delineates a new section
+[] 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+using System.Timers;
 
 namespace ExamPrepper
 {
@@ -11,14 +13,52 @@ namespace ExamPrepper
 		private const Gdk.Key hotkeyRejectAnswer = Gdk.Key.r;
 		private const Gdk.Key hotkeyShowAnswer = Gdk.Key.space;
 
-		private enum State {ShowingAnswer, ShowingQuestion}
-		private State state;
+		private enum QAState {ShowingAnswer, ShowingQuestion}
+		private QAState state;
+		private DateTime startTime;
+		private Timer updateTitleTimer;
+		private string baseTitle = "Quiz";
+
+		public TimeSpan ElapsedTime
+		{
+			get 
+			{
+				DateTime now = DateTime.Now;
+				return (now - startTime);
+			}
+		}
+
+		public string ElapsedTimeString
+		{
+			get
+			{
+				TimeSpan t = ElapsedTime;
+				StringBuilder s = new StringBuilder(12);
+
+				if(t.Days > 0)
+				{
+					s.Append(t.Days + " day" + (t.Days != 1 ? "s" : "") + ", ");
+				}
+				if(t.Hours > 0 || t.Days > 0)
+				{
+					s.Append(t.Hours + " hour" + (t.Hours != 1 ? "s" : "") + ", ");
+				}
+				// Always show elapsed minutes
+				s.Append(t.Minutes + " minute" + (t.Minutes != 1 ? "s" : ""));
+			
+				return s.ToString();
+			}
+		}
 
 		public QuizWindow(QuizConductor conductor) : 
 			base(Gtk.WindowType.Toplevel)
 		{
 			this.Build();
 			this.conductor = conductor;
+			this.startTime = DateTime.Now;
+			this.updateTitleTimer = new Timer(20000); // 20 s, so that we won't miss the actual change by much
+			this.updateTitleTimer.Elapsed += OnTitleUpdateTimer;
+			this.updateTitleTimer.Start();
 			GoToNextQuestion();
 		}
 
@@ -39,7 +79,7 @@ namespace ExamPrepper
 
 		private void AcceptAnswer()
 		{
-			if(state != State.ShowingAnswer)
+			if(state != QAState.ShowingAnswer)
 				return;
 
 			conductor.MarkAsCorrectlyAnswered();
@@ -48,15 +88,15 @@ namespace ExamPrepper
 
 		private void RejectAnswer()
 		{
-			if(state != State.ShowingAnswer)
+			if(state != QAState.ShowingAnswer)
 				return;
 
 			GoToNextQuestion();
 		}
 
-
 		private void GoToNextQuestion()
 		{
+			Console.WriteLine("Elapsed time: " + ElapsedTime);
 			currentQA = conductor.NextQuestion;
 
 			if(currentQA == null)
@@ -71,7 +111,7 @@ namespace ExamPrepper
 
 		private void ShowQuestion()
 		{
-			state = State.ShowingQuestion;
+			state = QAState.ShowingQuestion;
 
 			questionTextview.Buffer.Text = currentQA.Question;
 
@@ -88,10 +128,10 @@ namespace ExamPrepper
 
 		private void ShowAnswer()
 		{
-			if(state == State.ShowingAnswer)
+			if(state == QAState.ShowingAnswer)
 				return;
 
-			state = State.ShowingAnswer;
+			state = QAState.ShowingAnswer;
 
 			answerTextview.Buffer.Text = currentQA.Answer;
 			answerTextview.Sensitive = true;
@@ -114,11 +154,18 @@ namespace ExamPrepper
 			progressText.Text = conductor.NumberOfQuestionsLeft.ToString() + " questions left.";
 		}
 
+		private void UpdateTitle()
+		{
+			this.Title = baseTitle + " - " + ElapsedTimeString;
+		}
+
 		private void Finish()
 		{
 			UpdateProgressBar();
 
-			questionTextview.Buffer.Text = "No more questions. Take a break!";
+			questionTextview.Buffer.Text = String.Format(
+				"No more questions. It took you {0} to complete the quiz. Take a break!",
+				ElapsedTimeString);
 			questionTextview.Sensitive = false;
 
 			userResponseTextview.Buffer.Text = "";
@@ -138,7 +185,6 @@ namespace ExamPrepper
 			idw.Show();
 		}
 
-
 		protected void OnWindowKeyRelease(object o, Gtk.KeyReleaseEventArgs args)
 		{
 			if(args.Event.State == Gdk.ModifierType.ControlMask)
@@ -156,6 +202,11 @@ namespace ExamPrepper
 						break;
 				}
 			}
+		}
+
+		private void OnTitleUpdateTimer(Object source, ElapsedEventArgs e)
+		{
+			UpdateTitle();
 		}
 	}
 }
