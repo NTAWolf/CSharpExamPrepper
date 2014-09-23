@@ -67,6 +67,7 @@
     <Compile Include="QuizConductor.cs" />
     <Compile Include="ImageDisplayerWindow.cs" />
     <Compile Include="gtk-gui\ExamPrepper.ImageDisplayerWindow.cs" />
+    <Compile Include="QACategory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

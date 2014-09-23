@@ -9,6 +9,7 @@ namespace ExamPrepper
 	{
 		private List<QuestionAnswer> questionAnswers;
 		private List<QuestionAnswer> unusedQAs;
+		private List<QACategory> categories;
 		private QuestionAnswer currentQA = null;
 
 
@@ -61,39 +62,46 @@ namespace ExamPrepper
 		{
 			BasePath = basePath;
 			ReadQAs(rawText);
+			UseQAsInCategories(categories);
 			InitiateUnusedQAs();
 		}
 
 		public void ReadQAs(StreamReader rawText)
 		{
-			questionAnswers = new List<QuestionAnswer>(50);
-
+			categories = new List<QACategory>(10);
 			RemoveNonessentialLines(rawText);
 
 			while(false == rawText.EndOfStream)
 			{
-				// Determine source, tags
-				// For now, disregard source, tags
-				// 		Disregard all lines not starting with ?
 
-				// Create & store questions	
-				QuestionAnswer temp = new QuestionAnswer(rawText, null, null);
-				questionAnswers.Add(temp);
-
+				QACategory temp = new QACategory(rawText);
+				categories.Add(temp);
 				RemoveNonessentialLines(rawText);
 			}
 
-			Console.WriteLine("Total question count: " + questionAnswers.Count);
+			//Console.WriteLine("Total question count: " + questionAnswers.Count);
+		}
+
+		private void UseQAsInCategories(List<QACategory> categories)
+		{
+			questionAnswers = new List<QuestionAnswer>(50);
+			foreach(var c in categories)
+			{
+				foreach(var qa in c.QuestionAnswers)
+				{
+					questionAnswers.Add(qa);
+				}
+			}
 		}
 
 		private void RemoveNonessentialLines(StreamReader stream)
 		{
-			while(stream.Peek() != '?')
+			while( "\n\r\f".Contains(stream.Peek().ToString()) )
 			{
 				if(stream.EndOfStream)
 					break;
 
-				stream.ReadLine();
+				Console.WriteLine("Removing nonessential line: " + stream.ReadLine());
 			}
 
 		}

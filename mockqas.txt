@@ -1,26 +1,3 @@
-The Wolf's Exam Prepper syntax
-
-
-
-
-Keywords
-
-Source:
-#
-?
-{}, for containing blocks after # and ?
--tag1, tag2, tag3
-- //Stops applying previous tags
-
-MySection	\
----------	/ Delineates a new section
-[] 
-
-
-
-
-New syntax:
-
 Write a section headline like this - no special characters, no nothing
 ?Write your question like this
 You can also do multiline questions, as long as there are no completely empty lines in it
@@ -29,7 +6,7 @@ They can also be multiline
  
 You can have a blank line in you question or answer, if you fill it in with something - e.g. a space, as (not) seen here
 ?The next question can begin immediately after last answer, just start it with a question mark
-#There must always be an answer a question. Otherwise, baby will die.
+#The answer has to be directly after the question, though. No blank lines allowed here.
 
 The next section headline - just a blank line after last answer
 ?What is the meaning of life?

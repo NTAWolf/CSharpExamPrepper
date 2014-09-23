@@ -1,5 +1,13 @@
 TODO
 
+Allow use of Jeopardy formatting: "What (is|are)" "It (is|are)" to invert questions.
+Skip use of {}, use a completely blank line as indicator of question/response end
+
+Allow user to also get answers, and respond with questions
+Allow user to only run a specific part of the file, delimited somehow
+	- Perhaps by a simple, no-special-characters-indicating-anything line
+Allow user to specify what strings are used to indicate questions, answers, question blocks, answers blocks, etc.
+
 Allow drawing as user response
 	- In response field, or in a separate window?
 Set smaller tabulation size
