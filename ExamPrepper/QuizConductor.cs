@@ -9,7 +9,7 @@ namespace ExamPrepper
 	{
 		private List<QuestionAnswer> questionAnswers;
 		private List<QuestionAnswer> unusedQAs;
-		private List<QACategory> categories;
+		public List<QACategory> categories; // TODO fix privacy issue
 		private QuestionAnswer currentQA = null;
 
 

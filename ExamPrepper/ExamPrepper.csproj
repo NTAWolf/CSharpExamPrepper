@@ -68,6 +68,7 @@
     <Compile Include="ImageDisplayerWindow.cs" />
     <Compile Include="gtk-gui\ExamPrepper.ImageDisplayerWindow.cs" />
     <Compile Include="QACategory.cs" />
+    <Compile Include="CategoryTreeView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

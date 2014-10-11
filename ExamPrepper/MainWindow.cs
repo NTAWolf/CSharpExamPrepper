@@ -39,6 +39,10 @@ public partial class MainWindow: Gtk.Window
 		}
 
 		Console.WriteLine("Finished reading quiz");
+
+		// TODO Just hacking to see if stuff works
+		CategoryPicker p = new CategoryPicker(treeview1, qc.categories);
+		//textview1.Buffer.Text = p.cat2str;
 	}
 
 	public string AskForQuizFilePath()

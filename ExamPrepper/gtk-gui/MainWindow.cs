@@ -7,6 +7,10 @@ public partial class MainWindow
 	
 	private global::Gtk.Button openQuizFileButton;
 	
+	private global::Gtk.ScrolledWindow GtkScrolledWindow;
+	
+	private global::Gtk.TreeView treeview1;
+	
 	private global::Gtk.Button button1;
 
 	protected virtual void Build ()
@@ -32,16 +36,28 @@ public partial class MainWindow
 		w1.Expand = false;
 		w1.Fill = false;
 		// Container child vbox1.Gtk.Box+BoxChild
+		this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
+		this.GtkScrolledWindow.Name = "GtkScrolledWindow";
+		this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
+		// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
+		this.treeview1 = new global::Gtk.TreeView ();
+		this.treeview1.CanFocus = true;
+		this.treeview1.Name = "treeview1";
+		this.GtkScrolledWindow.Add (this.treeview1);
+		this.vbox1.Add (this.GtkScrolledWindow);
+		global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.GtkScrolledWindow]));
+		w3.Position = 1;
+		// Container child vbox1.Gtk.Box+BoxChild
 		this.button1 = new global::Gtk.Button ();
 		this.button1.CanFocus = true;
 		this.button1.Name = "button1";
 		this.button1.UseUnderline = true;
 		this.button1.Label = global::Mono.Unix.Catalog.GetString ("Start quizzing!");
 		this.vbox1.Add (this.button1);
-		global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.button1]));
-		w2.Position = 2;
-		w2.Expand = false;
-		w2.Fill = false;
+		global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.button1]));
+		w4.Position = 2;
+		w4.Expand = false;
+		w4.Fill = false;
 		this.Add (this.vbox1);
 		if ((this.Child != null)) {
 			this.Child.ShowAll ();

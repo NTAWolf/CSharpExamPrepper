@@ -52,7 +52,7 @@ namespace ExamPrepper
 			}
 			Question = Question.Trim();
 
-			Console.WriteLine("Question noted: " + Question);
+			//Console.WriteLine("Question noted: " + Question);
 		}
 
 		void ExtractAnswer(StreamReader rawText)
@@ -82,12 +82,12 @@ namespace ExamPrepper
 				rawText.Peek() > -1
 				)
 			{
-				Console.WriteLine("Peek giving " + rawText.Peek() + " not an empty line or a new question, nor end of file");
+				//Console.WriteLine("Peek giving " + rawText.Peek() + " not an empty line or a new question, nor end of file");
 				Answer += System.Environment.NewLine + rawText.ReadLine();
 			}
 				
 			Answer = Answer.Trim();
-			Console.WriteLine("Answer noted: " + Answer);
+			//Console.WriteLine("Answer noted: " + Answer);
 		}
 
 		public override string ToString()

@@ -13,6 +13,7 @@ namespace ExamPrepper
 		}
 
 		public List<QuestionAnswer> QuestionAnswers;
+		public List<QACategory> Subcategories;
 
 		public int Count
 		{
@@ -27,12 +28,21 @@ namespace ExamPrepper
 			ExtractCategory(stream);
 			ExtractQAs(stream);
 
+
+			Console.WriteLine("Category built: " + Category);
+			Console.WriteLine("QAs in category:");
+			foreach(var v in QuestionAnswers) 
+			{
+				Console.WriteLine ("? " + v.Question);
+				Console.WriteLine ("# " + v.Answer);
+			}
+			Console.WriteLine ("end of category");
+			Console.WriteLine ();
 		}
 
 		void ExtractCategory(StreamReader stream)
 		{
 			Category = stream.ReadLine();
-			Console.WriteLine("Category noted: " + Category);
 		}
 
 		void ExtractQAs(StreamReader stream)
@@ -63,8 +73,9 @@ namespace ExamPrepper
 			{
 				if(stream.EndOfStream)
 					break;
+				stream.ReadLine();
 
-				Console.WriteLine("QACategory removing nonessential line: " + stream.ReadLine());
+				// Console.WriteLine("QACategory removing nonessential line: " + stream.ReadLine());
 			}
 		}
 	}
