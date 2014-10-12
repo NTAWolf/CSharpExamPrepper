@@ -14,6 +14,8 @@ When you have thought about an answer, and maybe written it down, click `Show An
 
 This way, the application helps you focus on the questions that you cannot readily answer, and beat you with them until you can.
 
+You can take a look at [the sample quiz file](https://github.com/NTAWolf/ExamPrepper/blob/master/samplequiz.txt).
+
 # Hotkeys
 At the moment, hotkeys are hardcoded. They are as follows:
 
@@ -28,3 +30,4 @@ When you create your own quiz, some syntax rules have to be obeyed.
 - **#** at the beginning of a line indicates that the followin is an answer. The answer can span multiple lines, as seen next.
 - **[** after **#** shows that the answer is an image. The image name is enclosed in the brackets, i.e. the line must end with **]**. The images are assumed to be in the same folder as the quiz .txt file, in a subfolder called "images".
 - A line that isn't part of a question or an answer is treated as a Category, or Subject (same thing, different name) that the user can select or deselect when starting the quiz.
+
