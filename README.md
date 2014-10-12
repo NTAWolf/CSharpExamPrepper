@@ -3,9 +3,8 @@ ExamPrepper
 
 A small program made specifically for exam preparations - when you need to learn many things by heart, fast!
 
-===========
 
-# Usage
+## Usage
 You must get or write a quiz that follows the quiz syntax specified below. Use a plain text format, i.e. .txt. Then run this program, use it to open the relevant file, (de)select the categories as to your liking, and start quizzing.
 
 When quizzing, you are presented with a randomly selected question in the top field. The middle text area allows you to write down an answer, and the bottom field shows the answer that you provided in your quiz text file.
@@ -16,14 +15,14 @@ This way, the application helps you focus on the questions that you cannot readi
 
 You can take a look at [the sample quiz file](https://github.com/NTAWolf/ExamPrepper/blob/master/samplequiz.txt).
 
-# Hotkeys
+## Hotkeys
 At the moment, hotkeys are hardcoded. They are as follows:
 
 - CTRL + SPACE: Show true answer
 - CTRL + a: Accept your answer
 - CTRL + r: Reject your answer
 
-# Quiz syntax
+## Quiz syntax
 When you create your own quiz, some syntax rules have to be obeyed.
 
 - **?** at the beginning of a line indicates that the following is a question. The question can use any number of lines, as long as none of its lines begin with **#**.
