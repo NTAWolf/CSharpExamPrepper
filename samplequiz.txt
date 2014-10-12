@@ -23,7 +23,8 @@ lines (there is an invisible space in the previous line, therefore it is ok)
 This is another category
 ?With questions
 #And answers
-?Categories should simply be preceded by an empty line, unless it is the first category, of course.
+?Categories should simply be preceded by an empty line
+#Unless it is the first category, of course.
 
 Sample quiz questions
 ?What is the meaning of life?
