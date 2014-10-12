@@ -1,0 +1,40 @@
+Introdution to the QA format
+?Questions are written like this, with a question mark at the beginning of the line.
+#Answers are written like this, starting with a hashtag. Answers and questions always come in pairs.
+?Your next question can follow immediately after the last answer
+#Another answer
+
+?You can have a blank line before your question.
+#Or two. Or three. Or any number at all!
+
+?Questions and answers
+can
+be
+multiline
+#Just
+don't
+let them contain
+    completely
+empty
+ 
+lines (there is an invisible space in the previous line, therefore it is ok)
+
+
+This is another category
+?With questions
+#And answers
+?Categories should simply be preceded by an empty line, unless it is the first category, of course.
+
+Sample quiz questions
+?What is the meaning of life?
+#42.
+?What is a robust algorithm?
+#An algorithm that can produce acceptable results even when noise is present.
+?What is the value of the determinant of a matrix that is not invertible?
+#It must be 0.
+?Present a common misconception about lemmings.
+#They do not engage in mass suicidal dives off cliffs. (http://en.wikipedia.org/wiki/List_of_common_misconceptions#Biology)
+?What is Capgras syndrome?
+#When you recognize people, but are convinced that they are not the REAL people that you know - they have been replaced by someone else. The cognitive appraisal lacks backing from the emotional appraisal.
+?What is the effect of the intention to learn on learning?
+#It has an indirect effect, depending on the test subject's preferred learning strategy - whether it involves deep processing or not. The intention is more or less without consequence, as it is the approach that is important.
