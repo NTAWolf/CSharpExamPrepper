@@ -25,19 +25,12 @@ namespace ExamPrepper
 		public QACategory(StreamReader stream)
 		{
 			QuestionAnswers = new List<QuestionAnswer>(20);
-			ExtractCategory(stream);
-			ExtractQAs(stream);
 
-
-			Console.WriteLine("Category built: " + Category);
-			Console.WriteLine("QAs in category:");
-			foreach(var v in QuestionAnswers) 
+			do
 			{
-				Console.WriteLine ("? " + v.Question);
-				Console.WriteLine ("# " + v.Answer);
-			}
-			Console.WriteLine ("end of category");
-			Console.WriteLine ();
+				ExtractCategory(stream);
+				ExtractQAs(stream);
+			} while(Count <= 0);
 		}
 
 		void ExtractCategory(StreamReader stream)
