@@ -7,6 +7,7 @@ public partial class MainWindow: Gtk.Window
 {
 	private QuizConductor qc;
 	private QuizWindow qw;
+	private CategoryPicker cp;
 
 	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
@@ -23,7 +24,8 @@ public partial class MainWindow: Gtk.Window
 	{
 		if(qc == null)
 			return;
-		
+
+		qc = new QuizConductor(cp.SelectedCategories);
 		qw = new QuizWindow(qc);
 		qw.Show();
 	}
@@ -37,12 +39,8 @@ public partial class MainWindow: Gtk.Window
 			string basePath = System.IO.Path.GetDirectoryName(quizPath);
 			qc = new QuizConductor(quizStream, basePath);
 		}
-
-		Console.WriteLine("Finished reading quiz");
-
-		// TODO Just hacking to see if stuff works
-		CategoryPicker p = new CategoryPicker(treeview1, qc.categories);
-		//textview1.Buffer.Text = p.cat2str;
+			
+		cp = new CategoryPicker(treeview1, qc.Categories);
 	}
 
 	public string AskForQuizFilePath()

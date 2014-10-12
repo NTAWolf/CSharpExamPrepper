@@ -9,9 +9,16 @@ namespace ExamPrepper
 	{
 		private List<QuestionAnswer> questionAnswers;
 		private List<QuestionAnswer> unusedQAs;
-		public List<QACategory> categories; // TODO fix privacy issue
+		private List<QACategory> categories;
 		private QuestionAnswer currentQA = null;
 
+		public List<QACategory> Categories
+		{
+			get
+			{
+				return categories;
+			}
+		}
 
 		public int NumberOfQuestionsLeft
 		{
@@ -66,6 +73,13 @@ namespace ExamPrepper
 			InitiateUnusedQAs();
 		}
 
+		public QuizConductor(List<QACategory> categories)
+		{
+			this.categories = categories;
+			UseQAsInCategories(categories);
+			InitiateUnusedQAs();
+		}
+
 		public void ReadQAs(StreamReader rawText)
 		{
 			categories = new List<QACategory>(10);
@@ -73,13 +87,10 @@ namespace ExamPrepper
 
 			while(false == rawText.EndOfStream)
 			{
-
 				QACategory temp = new QACategory(rawText);
 				categories.Add(temp);
 				RemoveNonessentialLines(rawText);
 			}
-
-			//Console.WriteLine("Total question count: " + questionAnswers.Count);
 		}
 
 		private void UseQAsInCategories(List<QACategory> categories)
@@ -100,10 +111,8 @@ namespace ExamPrepper
 			{
 				if(stream.EndOfStream)
 					break;
-
-				Console.WriteLine("Removing nonessential line: " + stream.ReadLine());
+				stream.ReadLine();
 			}
-
 		}
 
 		private QuestionAnswer GetNextQuestionAnswer()
@@ -116,7 +125,6 @@ namespace ExamPrepper
 			{
 				while(currentQA == qa)
 				{
-					Console.WriteLine("currentQA == output");
 					qa = GetRandomElement(unusedQAs);
 				}
 			}

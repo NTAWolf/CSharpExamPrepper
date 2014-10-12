@@ -1,5 +1,7 @@
 TODO
 
+Show the total number of QAs during category selection
+
 Allow use of Jeopardy formatting: "What (is|are)" "It (is|are)" to invert questions.
 Implement new syntax style
 Skip use of {}, use a completely blank line as indicator of question/response end

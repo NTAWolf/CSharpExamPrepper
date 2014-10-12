@@ -78,6 +78,11 @@ namespace ExamPrepper
 				// Console.WriteLine("QACategory removing nonessential line: " + stream.ReadLine());
 			}
 		}
+
+		public override string ToString()
+		{
+			return string.Format("{0} ({1})", Category, Count);
+		}
 	}
 }
 

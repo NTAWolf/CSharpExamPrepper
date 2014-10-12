@@ -4,37 +4,40 @@ using System.Collections.Generic;
 
 namespace ExamPrepper
 {
+	/// <summary>
+	/// Category picker class.
+	/// Shows the user the available categories, and allows them to pick/unpick any set of categories.
+	/// </summary>
 	public class CategoryPicker
 	{
+		/// <summary>
+		/// Gets a list of the selected categories.
+		/// </summary>
+		/// <value>The selected categories.</value>
 		public List<QACategory> SelectedCategories
 		{
 			get
 			{
-				return null;
-			}
-		}
+				var states = GetToggleStates();
+				List<QACategory> output = new List<QACategory>(categories.Count);
 
-		public String cat2str
-		{
-			get
-			{
-				String str = "";
-				foreach(var c in categories)
+				for(int i = 0; i < states.Count; i++)
 				{
-					str += c.Category + "\n";
+					if(states[i])
+					{
+						output.Add(categories[i]);
+					}
 				}
 
-				return str;
+				return output;
 			}
 		}
 
 		private Gtk.TreeView treeview;
 		private List<QACategory> categories;
-		private Gtk.ToggleButton[] toggles;
 
 		public CategoryPicker(Gtk.TreeView treeview, List<QACategory> categories)
 		{
-			Console.WriteLine("Building categorypicker");
 			this.treeview = treeview;
 			this.categories = categories;
 			PopulateTree();
@@ -42,53 +45,66 @@ namespace ExamPrepper
 
 		void PopulateTree()
 		{
+			Gtk.ListStore subjectListStore = new Gtk.ListStore (typeof (bool), typeof (string));
+			treeview.Model = subjectListStore;
+
 			Gtk.TreeViewColumn includeColumn = new Gtk.TreeViewColumn ();
+			Gtk.TreeViewColumn subjectColumn = new Gtk.TreeViewColumn();
 			includeColumn.Title = "Include";
-
-			Gtk.TreeViewColumn subjectColumn = new Gtk.TreeViewColumn ();
 			subjectColumn.Title = "Subject";
-
 			treeview.AppendColumn (includeColumn);
 			treeview.AppendColumn (subjectColumn);
 
-			// Create a model that will hold two strings - Artist Name and Song Title
-			Gtk.ListStore subjectListStore = new Gtk.ListStore (typeof (Gtk.ToggleButton), typeof (string));
-
-			// Assign the model to the TreeView
-			treeview.Model = subjectListStore;
-
-			toggles = new Gtk.ToggleButton[categories.Count];
-			for(int i = 0; i < toggles.Length; i++)
+			for(int i = 0; i < categories.Count; i++)
 			{
-				var t = new Gtk.ToggleButton();
-				//t.T
-				toggles[i] = t;
-				subjectListStore.AppendValues (t, categories[i].Category);
+				var t = new Gtk.ToggleButton(i.ToString());
+				subjectListStore.AppendValues (t, categories[i].ToString());
 			}
 
+			Gtk.CellRendererToggle toggleCell = new Gtk.CellRendererToggle();
+			Gtk.CellRendererText textCell = new Gtk.CellRendererText ();
 
-			//subjectListStore.AppendValues ("Garbage", "Dog New Tricks");
+			includeColumn.PackStart (toggleCell, true);
+			subjectColumn.PackStart (textCell, true);
 
+			includeColumn.AddAttribute (toggleCell, "active", 0);
+			subjectColumn.AddAttribute (textCell, "text", 1);
 
-			Gtk.CellRendererToggle artistNameCell = new Gtk.CellRendererToggle();
-			// Create the text cell that will display the artist name
-			//Gtk.CellRendererText artistNameCell = new Gtk.CellRendererText ();
+			toggleCell.Active = true;
+			toggleCell.Toggled += ToggleHandler;
 
-			// Add the cell to the column
-			includeColumn.PackStart (artistNameCell, true);
+			SetAllToTrue();
+		}
 
-			// Do the same for the song title column
-			Gtk.CellRendererText songTitleCell = new Gtk.CellRendererText ();
-			subjectColumn.PackStart (songTitleCell, true);
+		void SetAllToTrue()
+		{
+			treeview.Model.Foreach(new TreeModelForeachFunc(delegate (TreeModel model, TreePath path, TreeIter iter)
+			{	
+				model.SetValue(iter, 0, true);
+				return false;
+			}));
+		}
 
-			// Tell the Cell Renderers which items in the model to display
-			includeColumn.AddAttribute (artistNameCell, "toggle", 0); // g_object_set_property: object class `GtkCellRendererToggle' has no property named `toggle'
+		List<bool> GetToggleStates()
+		{
+			List<bool> states = new List<bool>(categories.Count);
 
+			treeview.Model.Foreach(new TreeModelForeachFunc(delegate (TreeModel model, TreePath path, TreeIter iter2)
+			{	
+				states.Add((bool)model.GetValue(iter2, 0));
+				return false;
+			}));
 
-			subjectColumn.AddAttribute (songTitleCell, "text", 1);
+			return states;
+		}
 
+		void ToggleHandler(object o, ToggledArgs args)
+		{
+			TreeIter iter;
 
-			Console.WriteLine("Finished populating tree");
+			treeview.Model.GetIter(out iter, new TreePath(args.Path));
+			bool oldVal = (bool)treeview.Model.GetValue(iter, 0);
+			treeview.Model.SetValue(iter, 0, !oldVal);
 		}
 	}
 }
