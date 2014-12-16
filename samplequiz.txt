@@ -1,4 +1,4 @@
-Introdution to the QA format
+Introduction to the QA format
 ?Questions are written like this, with a question mark at the beginning of the line.
 #Answers are written like this, starting with a hashtag. Answers and questions always come in pairs.
 ?Your next question can follow immediately after the last answer
