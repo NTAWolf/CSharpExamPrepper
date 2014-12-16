@@ -96,7 +96,6 @@ namespace ExamPrepper
 
 		private void GoToNextQuestion()
 		{
-			Console.WriteLine("Elapsed time: " + ElapsedTime);
 			currentQA = conductor.NextQuestion;
 
 			if(currentQA == null)
